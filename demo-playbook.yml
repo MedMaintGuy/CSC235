@@ -1,0 +1,18 @@
+---
+- name: Package test
+  hosts: ubuntuvm
+  become: true
+  vars:
+    cowsay_package_name: cowsay
+
+  tasks:
+  - name: install cowsay
+    tags: packages
+    ansible.builtin.apt:
+      name: "{{ cowsay_package_name }}"
+      state: present
+      update_cache: true
+  - name: add newuser
+    tags: users
+    ansible.builtin.user:
+      name: newuser
